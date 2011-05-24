@@ -33,6 +33,24 @@
 	return [UIQuery withViews:views className:className];
 }
 
+-(UIQuery*)scrollToTop {
+	UITableView *table = self;
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	if ([self isValidIndexPath:indexPath forTableView:table]) {
+		[table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+	}
+	return [UIQuery withViews:views className:className];
+}
+
+-(UIQuery *)scrollToSection:(NSString*)sec {
+	int section = [sec intValue];
+	UITableView *table = self;
+	if ([table numberOfSections] > section && [table numberOfRowsInSection:section] > 0) {
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+		[table scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+	}
+}
+
 -(NSArray *)rowIndexPathList {
 	UITableView *table = (UITableView *)self;
 	NSMutableArray *rowIndexPathList = [NSMutableArray array];
